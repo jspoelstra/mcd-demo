@@ -15,7 +15,7 @@ async def main():
     async with MultiServerMCPClient(
         {
             "math": {
-                # make sure you start your weather server on port 5001
+                # make sure you start your math server on port 5001
                 "url": "http://localhost:5001/sse",
                 "transport": "sse",
             },
