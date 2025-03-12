@@ -25,6 +25,8 @@ export AZURE_OPENAI_API_KEY=<your_azure_openai_api_key>
 export AZURE_OPENAI_ENDPOINT=<your_azure_openai_endpoint>
 ```
 
+> **Note**: You can also set these variables in a `.env` file in the root directory of the project.
+
 ## Running the agent
 
 ### Start the MCP servers
