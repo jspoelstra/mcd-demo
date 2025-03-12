@@ -2,3 +2,4 @@ black
 langchain-mcp-adapters
 langgraph
 langchain-openai
+pandas

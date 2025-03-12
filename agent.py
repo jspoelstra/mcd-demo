@@ -12,6 +12,17 @@ model = AzureChatOpenAI(
 
 
 async def main():
+    questions = [
+        "what's (3 + 5) x 12?",
+        "what is the weather in nyc?",
+        "What is the average temperature of the pump?",
+        "What is the median flow rate of the pump?",
+        "What is the maximum temperature of the pump?",
+        "What is the minimum flow rate of the pump?",
+        "What is the standard deviation of the temperature of the pump?",
+        "What is the variance of the flow rate of the pump?",
+    ]
+
     async with MultiServerMCPClient(
         {
             "math": {
@@ -24,15 +35,17 @@ async def main():
                 "url": "http://localhost:5002/sse",
                 "transport": "sse",
             },
+            "pump telemetry": {
+                # make sure you start your telemetry server on port 5003
+                "url": "http://localhost:5003/sse",
+                "transport": "sse",
+            },
         }
     ) as client:
         agent = create_react_agent(model, client.get_tools())
-        math_response = await agent.ainvoke({"messages": "what's (3 + 5) x 12?"})
-        print(math_response)
-        weather_response = await agent.ainvoke(
-            {"messages": "what is the weather in nyc?"}
-        )
-        print(weather_response)
+        for question in questions:
+            response = await agent.ainvoke({"messages": question})
+            print(response)
 
 
 if __name__ == "__main__":
