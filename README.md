@@ -16,6 +16,15 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+### Set Environment variables
+
+Set the following environment variables. Get the values from Azure AI Foundry where the models are deployed:
+
+```bash
+export AZURE_OPENAI_API_KEY=<your_azure_openai_api_key>
+export AZURE_OPENAI_ENDPOINT=<your_azure_openai_endpoint>
+```
+
 ## Running the agent
 
 ### Start the MCP servers
