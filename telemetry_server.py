@@ -8,13 +8,14 @@ df = pd.DataFrame(
         "temperature": np.random.normal(loc=80, scale=5, size=21),
         "flow_rate": np.random.normal(loc=15, scale=5, size=21),
     },
-    index=pd.date_range(start="2023-01-01 00:00:00", periods=21, freq="15T")
+    index=pd.date_range(start="2023-01-01 00:00:00", periods=21, freq="15T"),
 )
 
 mcp = FastMCP("Pump Telemetry", port=5003)
 
+
 @mcp.tool(
-        description="""
+    description="""
         Get telemetry data statistic for a physical measure on the pump.
         Measures must be either 'temperature' or 'flow_rate'.
         Statistic must be a valid pandas time-series aggregation function."""
@@ -25,9 +26,23 @@ def get_telemetry(measure: str, statistic: str) -> float:
     if measure not in df.columns:
         raise ValueError(f"Invalid measure: {measure}. Must be one of {df.columns}")
     # Check that statistic is a valid pandas aggregation function
-    valid_statistics = ["mean", "median", "min", "max", "sum", "std", "var", "sem", "skew", "kurt", "prod"]
+    valid_statistics = [
+        "mean",
+        "median",
+        "min",
+        "max",
+        "sum",
+        "std",
+        "var",
+        "sem",
+        "skew",
+        "kurt",
+        "prod",
+    ]
     if statistic not in valid_statistics:
-        raise ValueError(f"Invalid statistic: {statistic}. Must be one of {valid_statistics}")
+        raise ValueError(
+            f"Invalid statistic: {statistic}. Must be one of {valid_statistics}"
+        )
     # Return the requested statistic for the specified measure
     return df[measure].agg(statistic)
 
