@@ -44,6 +44,25 @@ python math_server.py &
 python telemetry_server.py &
 ```
 
+Alternatively, you can run the math server in a Docker container. To do this, first build the Docker image:
+
+```bash
+make build
+```
+
+Then, run the container:
+
+```bash
+make run-local
+```
+
+If you want to push the Docker image to a registry, tag and push it using the following commands:
+
+```bash
+make login
+make push
+```
+
 ### Start the agent
 ```bash
 python agent.py
