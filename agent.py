@@ -1,19 +1,20 @@
+import os
 import asyncio
 from dotenv import load_dotenv
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langgraph.prebuilt import create_react_agent
 from langchain_openai import AzureChatOpenAI
 
-load_dotenv()
-model = AzureChatOpenAI(
-    azure_deployment="gpt-4o-mini",
-    api_version="2025-01-01-preview",
-)
+async def main(model):
+    # Get MATH_SERVER_URI from environment variable
+    MCP_MATH_URI = os.getenv("MCP_MATH_URI", "http://localhost:5001/sse")
+    print(f"MCP_MATH_URI: {MCP_MATH_URI}")
 
-
-async def main():
+    # Define the questions to ask the agent
     questions = [
         "what's (3 + 5) x 12?",
+        "what's 1234 / 23?",
+        "what's 2 ^ 7?",
         "what is the weather in nyc?",
         "What is the average temperature of the pump?",
         "What is the median flow rate of the pump?",
@@ -27,7 +28,7 @@ async def main():
         {
             "math": {
                 # make sure you start your math server on port 5001
-                "url": "http://localhost:5001/sse",
+                "url": MCP_MATH_URI,
                 "transport": "sse",
             },
             "weather": {
@@ -45,8 +46,17 @@ async def main():
         agent = create_react_agent(model, client.get_tools())
         for question in questions:
             response = await agent.ainvoke({"messages": question})
-            print(response)
+            print(response["messages"][-1].content)
+            # print(response)
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    # Load environment variables from .env file
+    load_dotenv()
+    # Set up the model
+    model = AzureChatOpenAI(
+        azure_deployment="gpt-4o-mini",
+        api_version="2025-01-01-preview",
+    )
+
+    asyncio.run(main(model))

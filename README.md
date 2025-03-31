@@ -25,6 +25,12 @@ export AZURE_OPENAI_API_KEY=<your_azure_openai_api_key>
 export AZURE_OPENAI_ENDPOINT=<your_azure_openai_endpoint>
 ```
 
+Optionally, you can set the following environment variables to configure the MCP servers:
+
+```bash
+export MCP_MATH_URI=http://<server-uri>:5001/sse
+```
+
 > **Note**: You can also set these variables in a `.env` file in the root directory of the project.
 
 ## Running the agent
@@ -36,6 +42,25 @@ You have to start all three MCP servers before starting the agent. Each server l
 python weather_server.py &
 python math_server.py &
 python telemetry_server.py &
+```
+
+Alternatively, you can run the math server in a Docker container. To do this, first build the Docker image:
+
+```bash
+make build
+```
+
+Then, run the container:
+
+```bash
+make run-local
+```
+
+If you want to push the Docker image to a registry, tag and push it using the following commands:
+
+```bash
+make login
+make push
 ```
 
 ### Start the agent
