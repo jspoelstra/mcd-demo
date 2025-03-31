@@ -28,7 +28,7 @@ export AZURE_OPENAI_ENDPOINT=<your_azure_openai_endpoint>
 Optionally, you can set the following environment variables to configure the MCP servers:
 
 ```bash
-export MATH_SERVER_URI=http://<server-uri>:5001/sse
+export MCP_MATH_URI=http://<server-uri>:5001/sse
 ```
 
 > **Note**: You can also set these variables in a `.env` file in the root directory of the project.

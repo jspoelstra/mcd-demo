@@ -7,7 +7,8 @@ from langchain_openai import AzureChatOpenAI
 
 async def main(model):
     # Get MATH_SERVER_URI from environment variable
-    MATH_SERVER_URI = os.getenv("MATH_SERVER_URI", "http://localhost:5001/sse")
+    MCP_MATH_URI = os.getenv("MCP_MATH_URI", "http://localhost:5001/sse")
+    print(f"MCP_MATH_URI: {MCP_MATH_URI}")
 
     # Define the questions to ask the agent
     questions = [
@@ -27,7 +28,7 @@ async def main(model):
         {
             "math": {
                 # make sure you start your math server on port 5001
-                "url": MATH_SERVER_URI,
+                "url": MCP_MATH_URI,
                 "transport": "sse",
             },
             "weather": {
@@ -57,6 +58,5 @@ if __name__ == "__main__":
         azure_deployment="gpt-4o-mini",
         api_version="2025-01-01-preview",
     )
-
 
     asyncio.run(main(model))
