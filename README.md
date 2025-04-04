@@ -1,5 +1,5 @@
 # mcd-demo
-Testing creation of simple MCD servers and integrating with LangChain agent
+Testing creation of simple MCP servers and integrating with LangChain agent
 
 ## Prerequisites
 
