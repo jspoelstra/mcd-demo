@@ -7,7 +7,7 @@ mcp = FastMCP("Math", port=5001)
 def add(a: int, b: int) -> int:
     """Add two numbers
     
-    Parameters:
+    Args:
         a (int): The first number
         b (int): The second number
         
@@ -21,7 +21,7 @@ def add(a: int, b: int) -> int:
 def multiply(a: int, b: int) -> int:
     """Multiply two numbers
     
-    Parameters:
+    Args:
         a (int): The first number
         b (int): The second number
         
@@ -34,7 +34,7 @@ def multiply(a: int, b: int) -> int:
 def divide(a: int, b: int) -> float:
     """Divide two numbers
     
-    Parameters:
+    Args:
         a (int): The dividend (numerator)
         b (int): The divisor (denominator)
         
@@ -52,7 +52,7 @@ def divide(a: int, b: int) -> float:
 def subtract(a: int, b: int) -> int:
     """Subtract two numbers
     
-    Parameters:
+    Args:
         a (int): The number to subtract from
         b (int): The number to subtract
         
@@ -65,7 +65,7 @@ def subtract(a: int, b: int) -> int:
 def power(a: int, b: int) -> int:
     """Raise a number to the power of another
     
-    Parameters:
+    Args:
         a (int): The base number
         b (int): The exponent
         
@@ -78,7 +78,7 @@ def power(a: int, b: int) -> int:
 def factorial(n: int) -> int:
     """Calculate the factorial of a number
     
-    Parameters:
+    Args:
         n (int): The non-negative integer to calculate factorial for
         
     Returns:
@@ -100,7 +100,7 @@ def factorial(n: int) -> int:
 def fibonacci(n: int) -> int:
     """Calculate the nth Fibonacci number
     
-    Parameters:
+    Args:
         n (int): The non-negative integer position in the Fibonacci sequence
         
     Returns:
