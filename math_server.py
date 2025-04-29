@@ -1,58 +1,52 @@
 from mcp.server.fastmcp import FastMCP
+from pydantic import BaseModel, Field
 
 mcp = FastMCP("Math", port=5001)
-
+class MathRequest(BaseModel):
+    a: int = Field(..., description="The first number")
+    b: int = Field(..., description="The second number")
 
 @mcp.tool()
-def add(a: int, b: int) -> int:
+def add(request: MathRequest) -> int:
     """Add two numbers
-    
-    Parameters:
-        a (int): The first number
-        b (int): The second number
-        
+
     Returns:
         int: The sum of a and b
     """
-    return a + b
+    return request.a + request.b
 
 
 @mcp.tool()
-def multiply(a: int, b: int) -> int:
+def multiply(request: MathRequest) -> int:
     """Multiply two numbers
-    
-    Parameters:
-        a (int): The first number
-        b (int): The second number
-        
+            
     Returns:
         int: The product of a and b
     """
-    return a * b
+    return request.a * request.b
+
+class DivRequest(BaseModel):
+    a: int = Field(..., description="Numerator")
+    b: int = Field(..., description="Denominator")
 
 @mcp.tool()
-def divide(a: int, b: int) -> float:
-    """Divide two numbers
-    
-    Parameters:
-        a (int): The dividend (numerator)
-        b (int): The divisor (denominator)
-        
+def divide(request: DivRequest) -> float:
+    """This function performs division of two integers and returns the result as a float.        
     Returns:
         float: The result of dividing a by b
         
     Raises:
         ValueError: If b is zero
     """
-    if b == 0:
+    if request.b == 0:
         raise ValueError("Cannot divide by zero")
-    return a / b
+    return request.a / request.b
 
 @mcp.tool()
 def subtract(a: int, b: int) -> int:
     """Subtract two numbers
     
-    Parameters:
+    Args:
         a (int): The number to subtract from
         b (int): The number to subtract
         
@@ -65,7 +59,7 @@ def subtract(a: int, b: int) -> int:
 def power(a: int, b: int) -> int:
     """Raise a number to the power of another
     
-    Parameters:
+    Args:
         a (int): The base number
         b (int): The exponent
         
@@ -78,7 +72,7 @@ def power(a: int, b: int) -> int:
 def factorial(n: int) -> int:
     """Calculate the factorial of a number
     
-    Parameters:
+    Args:
         n (int): The non-negative integer to calculate factorial for
         
     Returns:
@@ -100,7 +94,7 @@ def factorial(n: int) -> int:
 def fibonacci(n: int) -> int:
     """Calculate the nth Fibonacci number
     
-    Parameters:
+    Args:
         n (int): The non-negative integer position in the Fibonacci sequence
         
     Returns:
